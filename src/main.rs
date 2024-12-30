@@ -18,6 +18,7 @@ fn main() {
         move_player2_paddle,
         update_entity_positions.after(move_ball),
         move_paddles.after(move_player1_paddle),
+        handle_collisions.after(move_ball),
     ))
     .run();
 }
