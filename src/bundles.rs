@@ -22,7 +22,7 @@ impl BallBundle {
     }
 }
 
-#[derivce(Bundle)]
+#[derive(Bundle)]
 pub struct PaddleBundle {
     pub paddle: Paddle,
     pub shape: Shape,
@@ -52,7 +52,7 @@ impl BoundaryBundle {
     pub fn new(x:f32, y:f32, width:f32) -> Self {
         Self {
             boundary: Boundary,
-            shape: Shape(Vec2::new(width, BOUNDARY_WIDTH)),
+            shape: Shape(Vec2::new(width, BOUNDARY_HEIGHT)),
             position: Position(Vec2::new(x,y))
         }
     }
