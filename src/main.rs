@@ -12,5 +12,12 @@ fn main() {
     App::new()
     .add_plugins(DefaultPlugins.set(create_window()))
     .add_systems(Startup, (spawn_dotted_line, spawn_ball, spawn_paddles, spawn_camera))
+    .add_systems(Update, (
+        move_ball,
+        move_player1_paddle,
+        move_player2_paddle,
+        update_entity_positions.after(move_ball),
+        move_paddles.after(move_player1_paddle),
+    ))
     .run();
 }
