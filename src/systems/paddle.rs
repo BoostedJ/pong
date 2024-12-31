@@ -25,9 +25,9 @@ pub fn spawn_paddles(
             PaddleBundle::new(right_paddle_x, 0.),
             MaterialMesh2dBundle{
                 mesh: mesh_handle.clone().into(),
-                material: bevy::prelude::MeshMaterial2d(materials.add(
+                material: materials.add(
                     ColorMaterial::from(Color::srgb(0.0, 1.0, 0.0))
-                )),
+                ),
                 ..default()
             }
         ));
@@ -37,9 +37,9 @@ pub fn spawn_paddles(
             PaddleBundle::new(left_paddle_x, 0.),
             MaterialMesh2dBundle{
                 mesh: mesh_handle.clone().into(),
-                material: bevy::prelude::MeshMaterial2d(materials.add(
+                material: materials.add(
                     ColorMaterial::from(Color::srgb(0.0, 0.0, 1.0))
-                )),
+                ),
                 ..default()
             }
         ));
