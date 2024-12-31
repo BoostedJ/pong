@@ -1,3 +1,4 @@
+#![windows_subsystem = "windows"]
 use bevy::prelude::*;
 mod systems;
 mod constants;
@@ -7,6 +8,8 @@ mod bundles;
 use systems::*;
 use components::*;
 use bundles::*;
+
+
 
 fn main() {
     App::new()

@@ -52,9 +52,9 @@ pub fn move_player1_paddle(
 ) {
     if let Ok(mut velocity) = paddle.get_single_mut() {
         if keyboard_input.pressed(KeyCode::ArrowUp) {
-            velocity.0.y = 1.;
+            velocity.0.y = PADDLE_SPEED;
         } else if keyboard_input.pressed(KeyCode::ArrowDown) {
-            velocity.0.y = -1.0;
+            velocity.0.y = -PADDLE_SPEED;
         } else {
             velocity.0.y = 0.0;
         }
@@ -62,16 +62,31 @@ pub fn move_player1_paddle(
 }
 
 pub fn move_player2_paddle(
-    keyboard_input: Res<ButtonInput<KeyCode>>,
-    mut paddle: Query<&mut Velocity, With<Player2>>,
+    ball_query: Query<(&Position, &Velocity), With<Ball>>,
+    mut paddle_query: Query<(&mut Position, &mut Velocity), (With<Player2>, Without<Ball>)>,
 ) {
-    if let Ok(mut velocity) = paddle.get_single_mut() {
-        if keyboard_input.pressed(KeyCode::KeyW) {
-            velocity.0.y = 1.;
-        } else if keyboard_input.pressed(KeyCode::KeyS) {
-            velocity.0.y = -1.0;
-        } else {
-            velocity.0.y = 0.0;
+    if let Ok((ball_position, ball_velocity)) = ball_query.get_single() {
+        if let Ok((paddle_position, mut velocity)) = paddle_query.get_single_mut() {
+            let paddle_center_y = paddle_position.0.y;
+            let ball_y = ball_position.0.y;
+            let ball_vel = ball_velocity.0.x;
+            if ball_vel < 0. {
+                if (ball_y - paddle_center_y).abs() < PADDLE_HEIGHT / 2.0 {
+                    velocity.0.y = 0.;
+                } else if ball_y > paddle_center_y {
+                    velocity.0.y = PADDLE_SPEED;
+                } else {
+                    velocity.0.y = -PADDLE_SPEED;
+                }
+            } else {
+                if (0. - paddle_center_y).abs() < PADDLE_HEIGHT / 2.0 {
+                    velocity.0.y = 0.;
+                } else if ball_y > paddle_center_y {
+                    velocity.0.y = PADDLE_SPEED;
+                } else {
+                    velocity.0.y = -PADDLE_SPEED;
+                }
+            }
         }
     }
 }
