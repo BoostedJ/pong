@@ -1,5 +1,4 @@
 use bevy::prelude::*;
-use bevy::sprite::MaterialMesh2dBundle;
 use rand::Rng;
 
 use crate::components::*;
@@ -20,11 +19,8 @@ pub fn spawn_ball(
 
     commands.spawn((
         BallBundle::new(1.0, 0.0),
-        MaterialMesh2dBundle {
-            mesh:mesh_handle.into(),
-            material:material_handle,
-            ..default()
-        }
+        Mesh2d(mesh_handle.into()),
+        MeshMaterial2d(material_handle),
     ));
 }
 

@@ -1,5 +1,4 @@
 use bevy::prelude::*;
-use bevy::sprite::MaterialMesh2dBundle;
 
 use crate::components::*;
 use crate::constants::*;
@@ -23,25 +22,19 @@ pub fn spawn_paddles(
         commands.spawn((
             Player1,
             PaddleBundle::new(right_paddle_x, 0.),
-            MaterialMesh2dBundle{
-                mesh: mesh_handle.clone().into(),
-                material: materials.add(
-                    ColorMaterial::from(Color::srgb(0.0, 1.0, 0.0))
-                ),
-                ..default()
-            }
+            Mesh2d(mesh_handle.clone().into()),
+            MeshMaterial2d(materials.add(
+                ColorMaterial::from(Color::srgb(0.0,1.0,0.0))
+            )),
         ));
 
         commands.spawn((
             Player2,
             PaddleBundle::new(left_paddle_x, 0.),
-            MaterialMesh2dBundle{
-                mesh: mesh_handle.clone().into(),
-                material: materials.add(
-                    ColorMaterial::from(Color::srgb(0.0, 0.0, 1.0))
-                ),
-                ..default()
-            }
+            Mesh2d(mesh_handle.clone().into()),
+            MeshMaterial2d(materials.add(
+                ColorMaterial::from(Color::srgb(0.0,0.0,1.0))
+            )),
         ));
     }
 }

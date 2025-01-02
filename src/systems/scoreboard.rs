@@ -5,40 +5,36 @@ pub fn spawn_scoreboard(
     mut commands: Commands,
 ) {
     commands.spawn((
-        TextBundle::from_section(
-            "0",
-            TextStyle{
-                font_size: 64.0,
-                color: Color::WHITE,
-                ..default()
-            },
-        )
-        .with_text_justify(JustifyText::Center)
-        .with_style(Style {
+        Text::new("0"),
+        Node {
             position_type: PositionType::Absolute,
             top: Val::Px(5.0),
             right: Val::Percent(45.0),
             ..default()
-        }),
+        },
+        TextFont {
+            font_size: 64.0,
+            ..default()
+        },
+        TextColor(Color::WHITE),
+        TextLayout::new_with_justify(JustifyText::Center),
         Player1Score
     ));
 
     commands.spawn((
-        TextBundle::from_section(
-            "0",
-            TextStyle{
-                font_size: 64.0,
-                color: Color::WHITE,
-                ..default()
-            },
-        )
-        .with_text_justify(JustifyText::Center)
-        .with_style(Style {
+        Text::new("0"),
+        Node {
             position_type: PositionType::Absolute,
             top: Val::Px(5.0),
             left: Val::Percent(45.0),
             ..default()
-        }),
+        },
+        TextFont {
+            font_size: 64.0,
+            ..default()
+        },
+        TextColor(Color::WHITE),
+        TextLayout::new_with_justify(JustifyText::Center),
         Player2Score
     ));
 }
@@ -50,10 +46,10 @@ pub fn update_scoreboard(
 ) {
     if score.is_changed() {
         if let Ok(mut player1_score) = player1_score.get_single_mut() {
-            player1_score.sections[0].value = score.player1.to_string();
+            player1_score.0 = score.player1.clone().to_string();
         }
         if let Ok(mut player2_score) = player2_score.get_single_mut() {
-            player2_score.sections[0].value = score.player2.to_string();
+            player2_score.0 = score.player2.clone().to_string();
         }
     }
 }

@@ -1,6 +1,6 @@
 use bevy::prelude::*;
-use bevy::math::{ bounding:: {Aabb2d, BoundingCircle, BoundingVolume, IntersectsVolume }};
-use bevy::sprite::MaterialMesh2dBundle;
+use bevy::math::bounding:: {Aabb2d, BoundingCircle, BoundingVolume, IntersectsVolume };
+
 use crate::components::*;
 use crate::constants::BOUNDARY_HEIGHT;
 use crate::BoundaryBundle;
@@ -85,19 +85,13 @@ pub fn spawn_boundary(
 
         commands.spawn((
             top_boundary,
-            MaterialMesh2dBundle {
-                mesh: mesh_handle.clone().into(),
-                material: material_handle.clone(),
-                ..default()
-            },
+            Mesh2d(mesh_handle.clone().into()),
+            MeshMaterial2d(material_handle.clone()),
         ));
         commands.spawn((
             bottom_boundary,
-            MaterialMesh2dBundle {
-                mesh: mesh_handle.clone().into(),
-                material: material_handle.clone(),
-                ..default()
-            },
+            Mesh2d(mesh_handle.clone().into()),
+            MeshMaterial2d(material_handle.clone()),
         ));
     }
 }
